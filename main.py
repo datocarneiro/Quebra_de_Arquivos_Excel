@@ -4,7 +4,7 @@ import os
 from tkinter import filedialog
 from tkinter import simpledialog, Tk
 import tkinter.font as font
-
+ 
 def buscar_arquivo():
     # Abre uma janela de diálogo para permitir que o usuário escolha um arquivo Excel (.xlsx). 
     file_path = filedialog.askopenfilename()
