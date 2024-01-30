@@ -1,4 +1,4 @@
-# Documentação do Programa de Quebra de Arquivos Excel
+# Programa de Quebra de Arquivos Excel
 
 ## Visão Geral
 
