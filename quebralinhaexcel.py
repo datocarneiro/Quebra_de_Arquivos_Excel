@@ -19,11 +19,10 @@ qtd_linhas = simpledialog.askinteger("Quantidade de Linhas", "Digite a quantidad
 # Divida os dados em pedaços de acordo com a quantidade de linhas definida pelo usuário
 pedacos = [df[i:i+qtd_linhas] for i in range(0, len(df), qtd_linhas)]
 
-
 # Solicitar ao usuário que escolha o nome e diretório de saída uma única vez
 arquivo_base = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx")])
 
-# Iterar sobre cada pedaço
+# Iterar sobre cada pedaço defenido pela qtd de linhas
 for i, pedaco in enumerate(pedacos):
     # Acrescentar o índice como sufixo ao nome do arquivo
     arquivo_saida = f"{arquivo_base}_{i+1}.xlsx"
