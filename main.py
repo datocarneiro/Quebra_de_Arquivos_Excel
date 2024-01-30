@@ -43,4 +43,4 @@ for i, pedaco in enumerate(pedacos):
     arquivo_saida = f"{arquivo_base}_{i+1}.xlsx"
     pedaco.to_excel(arquivo_saida, index=False)  # O parâmetro `index=False` evita que seja criada uma coluna para índices no arquivo de saída
 
-print(f"Arquivos Excel criados com sucesso.")
+print(f"Arquivos Excel criados com sucesso.") 
