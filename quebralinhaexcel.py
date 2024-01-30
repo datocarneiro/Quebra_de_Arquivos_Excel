@@ -5,6 +5,7 @@ from tkinter import filedialog
 from tkinter import simpledialog
 
 def buscar_arquivo():
+    # Abre uma janela de diálogo para permitir que o usuário escolha um arquivo Excel (.xlsx). 
     file_path = filedialog.askopenfilename()
     if not file_path.endswith('.xlsx'):
         raise ValueError("Por favor, selecione um arquivo Excel (.xlsx)")
@@ -22,7 +23,7 @@ pedacos = [df[i:i+qtd_linhas] for i in range(0, len(df), qtd_linhas)]
 # Solicitar ao usuário que escolha o nome e diretório de saída uma única vez
 arquivo_base = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx")])
 
-# Iterar sobre cada pedaço defenido pela qtd de linhas
+# Iterar sobre cada pedaço definido pela quantidade de linhas
 for i, pedaco in enumerate(pedacos):
     # Acrescentar o índice como sufixo ao nome do arquivo
     arquivo_saida = f"{arquivo_base}_{i+1}.xlsx"
