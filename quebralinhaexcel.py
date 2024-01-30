@@ -1,23 +1,32 @@
 # Importe a biblioteca pandas para trabalhar com arquivos Excel.
 import pandas as pd
 import os
+from tkinter import filedialog
+from tkinter import simpledialog
 
-
-# Substitua 'caminho/para/' pelo caminho real para o diretório que contém 'base.xlsx'
-caminho_arquivo_entrada = os.path.join('C:/Users/dato/OneDrive/Documentos/Datoo/REPOSITORIOS/PYTHON/Quebra_linha_excel', 'base.xlsx')
-
-print(os.getcwd())
-
-# Defina os caminhos do arquivo de entrada e o nome base dos arquivos de saída
-nome_base_arquivos_saida = os.path.join('C:/Users/dato/OneDrive/Documentos/Datoo/REPOSITORIOS/PYTHON/Quebra_linha_excel/Arquivos_Combinados', 'saida_arquivo_combinado')
+def buscar_arquivo():
+    file_path = filedialog.askopenfilename()
+    if not file_path.endswith('.xlsx'):
+        raise ValueError("Por favor, selecione um arquivo Excel (.xlsx)")
+    return file_path
 
 # Leia o arquivo Excel de entrada e armazene-o em um DataFrame (tabela)
-df = pd.read_excel(caminho_arquivo_entrada)
+df = pd.read_excel(buscar_arquivo())
 
-# Divida os dados em pedaços de 900 linhas usando list comprehension
-pedacos = [df[i:i+700] for i in range(0, len(df), 700)] # dititar a qtd de linha onde vai gerar a quebra
+# Solicitar ao usuário a quantidade de linhas desejada
+qtd_linhas = simpledialog.askinteger("Quantidade de Linhas", "Digite a quantidade de linhas para a quebra:", initialvalue=900)
 
-# Itere sobre cada pedaço e salve-o em um novo arquivo Excel
+# Divida os dados em pedaços de acordo com a quantidade de linhas definida pelo usuário
+pedacos = [df[i:i+qtd_linhas] for i in range(0, len(df), qtd_linhas)]
+
+
+# Solicitar ao usuário que escolha o nome e diretório de saída uma única vez
+arquivo_base = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx")])
+
+# Iterar sobre cada pedaço
 for i, pedaco in enumerate(pedacos):
-    nome_arquivo_saida = f"{nome_base_arquivos_saida}{i+1}.xlsx"
-    pedaco.to_excel(nome_arquivo_saida, index=False) # O parâmetro `index=False` evita que seja criada uma coluna para índices no arquivo de saída
+    # Acrescentar o índice como sufixo ao nome do arquivo
+    arquivo_saida = f"{arquivo_base}_{i+1}.xlsx"
+    pedaco.to_excel(arquivo_saida, index=False)  # O parâmetro `index=False` evita que seja criada uma coluna para índices no arquivo de saída
+
+print(f"Arquivos Excel criados com sucesso.")
